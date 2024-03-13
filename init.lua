@@ -164,6 +164,9 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- joonho
+vim.keymap.set('n', '<leader>fb', ':Telescope file_browser<CR>', {noremap = true})
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -397,6 +400,12 @@ require('lazy').setup({
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
     end,
+  },
+
+  -- joonho
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
   },
 
   { -- LSP Configuration & Plugins
@@ -724,6 +733,17 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
+    end,
+
+    config = function ()
+      require("tokyonight").setup({
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+          functions = { italic = false },
+          variables = { italic = false },
+        },
+      })
     end,
   },
 
